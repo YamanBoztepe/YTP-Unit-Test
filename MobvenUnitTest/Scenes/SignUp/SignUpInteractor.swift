@@ -14,13 +14,12 @@ protocol SignUpBusinessLogic {
 protocol SignUpDataStore { }
 
 final class SignUpInteractor: SignUpBusinessLogic, SignUpDataStore {
-    var presenter: SignUpPresenter?
+    var presenter: SignUpPresentationLogic?
     var invalidFields: [SignUp.FormInputKeys] = []
     
     // MARK: - Form Submit
     
     func submitForm(_ formInputs: [String: String]) {
-        validate(name: formInputs[SignUp.FormInputKeys.name.rawValue])
         validate(email: formInputs[SignUp.FormInputKeys.email.rawValue])
         validate(password: formInputs[SignUp.FormInputKeys.password.rawValue])
         validate(repeatPassword: formInputs[SignUp.FormInputKeys.password.rawValue],
@@ -34,17 +33,6 @@ final class SignUpInteractor: SignUpBusinessLogic, SignUpDataStore {
     }
     
     // MARK: - Validation Logics
-    
-    func validate(name: String?) {
-        guard let name else {
-            configureInvalidField(isValid: false, field: .name)
-            return
-        }
-        
-        let isValidName = name.count > SignUp.Constans.nameMinLength && name.count < SignUp.Constans.nameMaxLength
-        
-        configureInvalidField(isValid: isValidName, field: .name)
-    }
     
     func validate(email: String?) {
         guard let email = email, !email.isEmpty else {
@@ -64,13 +52,13 @@ final class SignUpInteractor: SignUpBusinessLogic, SignUpDataStore {
             return
         }
         
-        let isValidPassword = password.count > SignUp.Constans.passwordMaxLength || password.count < SignUp.Constans.passwordMinLength
+        let isValidPassword = password.count < SignUp.Constans.passwordMaxLength && password.count > SignUp.Constans.passwordMinLength
         
         configureInvalidField(isValid: isValidPassword, field: .password)
     }
     
     func validate(repeatPassword: String?, accordingTo password: String?) {
-        guard let password, let repeatPassword, !repeatPassword.isEmpty else {
+        guard let repeatPassword, !repeatPassword.isEmpty else {
             configureInvalidField(isValid: false, field: .repeatPassword)
             return
         }

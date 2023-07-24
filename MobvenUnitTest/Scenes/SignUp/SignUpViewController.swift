@@ -12,8 +12,7 @@ protocol SignUpDisplayLogic {
     func routeToHome()
 }
 
-final class SignUpViewController: UIViewController, SignUpDisplayLogic {
-    @IBOutlet weak var nameTextField: UITextField!
+class SignUpViewController: UIViewController, SignUpDisplayLogic {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var repeatPasswordTextField: UITextField!
@@ -57,7 +56,6 @@ final class SignUpViewController: UIViewController, SignUpDisplayLogic {
     
     @IBAction func submitTapped(_ sender: Any) {
         let formInputs: [String: String] = [
-            SignUp.FormInputKeys.name.rawValue: nameTextField.text.stringValue,
             SignUp.FormInputKeys.email.rawValue: emailTextField.text.stringValue,
             SignUp.FormInputKeys.password.rawValue: passwordTextField.text.stringValue,
             SignUp.FormInputKeys.repeatPassword.rawValue: repeatPasswordTextField.text.stringValue
@@ -72,13 +70,11 @@ final class SignUpViewController: UIViewController, SignUpDisplayLogic {
     
     // MARK: - View Actions
     func displayInvalidFields(_ invalidFields: [SignUp.FormInputKeys]) {
-        [nameTextField, emailTextField, passwordTextField, repeatPasswordTextField]
+        [emailTextField, passwordTextField, repeatPasswordTextField]
             .forEach({ $0?.backgroundColor = .white })
         
         for field in invalidFields {
             switch field {
-            case .name:
-                nameTextField.backgroundColor = .red
             case .email:
                 emailTextField.backgroundColor = .red
             case .password:

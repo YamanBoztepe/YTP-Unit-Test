@@ -9,6 +9,7 @@ import Foundation
 
 protocol SignUpPresentationLogic {
     func presentInvalidFields(_ invalidFields: [SignUp.FormInputKeys])
+    func presentHomePage()
 }
 
 final class SignUpPresenter: SignUpPresentationLogic {

@@ -1,0 +1,23 @@
+{
+  "configurations" : [
+    {
+      "id" : "C4EAC57F-E8F6-4DB6-9124-280AD740557F",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:MobvenUnitTest.xcodeproj",
+      "identifier" : "1C9007B02A6521140022CF66",
+      "name" : "MobvenUnitTest"
+    }
+  },
+  "testTargets" : [
+
+  ],
+  "version" : 1
+}
